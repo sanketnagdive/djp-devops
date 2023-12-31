@@ -17,6 +17,8 @@ pipeline {
         stage('copying keys to the helm chart') {
 	  steps {
 		script{
+        jobName = sh(returnStdout: true, script: "echo $JOB_NAME").split('/')[-1].trim().toLowerCase()
+        currentWs = sh(returnStdout: true, script: 'pwd').trim()
 	keys_path = "${currentWs}/private_repo/ansible/inventory/dev/EJP/keys"
         dest_path = "${currentWs}/kubernetes/helm_charts/EJP/$jobName/"
 	sh "cp -rf $keys_path $dest_path"		
