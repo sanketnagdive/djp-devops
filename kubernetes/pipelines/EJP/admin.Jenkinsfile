@@ -31,7 +31,7 @@ pipeline {
                         currentWs = sh(returnStdout: true, script: 'pwd').trim()
                         chart_path = "${currentWs}/kubernetes/helm_charts/EJP/$jobName"
                         values_file = "${currentWs}/private_repo/ansible/inventory/dev/EJP/private_values.yaml"
-                        #sh "helm upgrade --install $jobName $chart_path --namespace  $djp_namespace --kubeconfig  $kubeconfig_path -f $values_file"
+                        // sh "helm upgrade --install $jobName $chart_path --namespace  $djp_namespace --kubeconfig  $kubeconfig_path -f $values_file"
                 }
             }
         }
