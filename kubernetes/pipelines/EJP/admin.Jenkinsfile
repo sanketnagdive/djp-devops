@@ -19,8 +19,8 @@ pipeline {
 		script{
         jobName = sh(returnStdout: true, script: "echo $JOB_NAME").split('/')[-1].trim().toLowerCase()
         currentWs = sh(returnStdout: true, script: 'pwd').trim()
-	keys_path = "${currentWs}/private_repo/ansible/inventory/dev/EJP/keys"
-        dest_path = "${currentWs}/kubernetes/helm_charts/EJP/$jobName/"
+	keys_path = "${currentWs}/private_repo/ansible/inventory/$env/MyJP/keys"
+        dest_path = "${currentWs}/kubernetes/helm_charts/MyJP/$jobName/"
 	sh "cp -rf $keys_path $dest_path"		
 	}
 }
@@ -31,9 +31,10 @@ pipeline {
                 script {
                         jobName = sh(returnStdout: true, script: "echo $JOB_NAME").split('/')[-1].trim().toLowerCase()
                         currentWs = sh(returnStdout: true, script: 'pwd').trim()
-                        chart_path = "${currentWs}/kubernetes/helm_charts/EJP/$jobName"
-                        values_file = "${currentWs}/private_repo/ansible/inventory/dev/EJP/private_values.yaml"
-                        // sh "helm upgrade --install $jobName $chart_path --namespace  $djp_namespace --kubeconfig  $kubeconfig_path -f $values_file"
+			env = sh(returnStdout: true, script: "echo $JOB_NAME").split('/')[-3].trim()
+                        chart_path = "${currentWs}/kubernetes/helm_charts/MyJP/$jobName"
+			values_file = "${currentWs}/private_repo/ansible/inventory/$env/MyJP/private_values.yaml"
+                        sh "helm upgrade --install $jobName $chart_path --namespace  $djp_namespace --kubeconfig  $kubeconfig_path -f $values_file"
                 }
             }
         }
