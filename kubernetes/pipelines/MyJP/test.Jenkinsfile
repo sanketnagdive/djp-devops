@@ -23,8 +23,8 @@ pipeline {
                         chart_path = "${currentWs}/kubernetes/helm_charts/MyJP/$jobName"
                         values_file = "${currentWs}/private_repo/ansible/inventory/$env/MyJP/private_values.yaml"
                         k8s= "$kubeconfig_path"
-                        sh '$(cut -d'/' -f2 <<<"$kubeconfig_path")'
-                        sh 'echo $k8s'
+                        sh 'test=$(cut -d'/' -f2 <<<"$kubeconfig_path")'
+                        sh 'echo $test'
                         //sh "helm upgrade --install $jobName $chart_path --namespace  $djp_namespace --kubeconfig  $kubeconfig_path -f $values_file"
                 }
             }
