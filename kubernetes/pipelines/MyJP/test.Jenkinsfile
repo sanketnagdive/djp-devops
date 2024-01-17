@@ -23,6 +23,7 @@ pipeline {
                         chart_path = "${currentWs}/kubernetes/helm_charts/MyJP/$jobName"
                         values_file = "${currentWs}/private_repo/ansible/inventory/$env/MyJP/private_values.yaml"
                         k8s= "$kubeconfig_path"
+                        sh "echo $kubeconfig_path"
                         k8s= k8s.split('/')
                         sh 'echo $k8s'
                         // sh 'test=$(cut -d'/' -f2 <<<"$kubeconfig_path")'
